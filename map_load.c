@@ -6,7 +6,7 @@
 /*   By: mle-brie <mle-brie@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:25:08 by mle-brie          #+#    #+#             */
-/*   Updated: 2025/04/17 11:42:18 by mle-brie         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:31:03 by mle-brie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ void	create_game(t_game *game)
 	game->win = NULL;
 	game->moves = 0;
 	game->nb_collect = 0;
-	game->dfs_collect = 0;
-	game->dfs_exit = 0;
 	game->player.y = 0;
 	game->player.x = 0;
-	game->nothing = 0;//added for parsing
+	game->exit.y = 0;
+	game->exit.x = 0;
 }
 
 void	init_game(t_game *game, char *fileber)

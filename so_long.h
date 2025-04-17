@@ -6,7 +6,7 @@
 /*   By: mle-brie <mle-brie@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:39:11 by mle-brie          #+#    #+#             */
-/*   Updated: 2025/04/17 11:14:13 by mle-brie         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:48:58 by mle-brie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 # include "libft/libft.h"
 # include "mini_libx/mlx.h"
 # include "mini_libx/mlx_int.h"
-# include <stdbit.h>
-# define TILESET 64//64x64 pixels per tile
+# include <stdbool.h>
+# include <time.h>
+# define TILESET 65//64x64 pixels per tile
 # define ESC 65307//Linux code for ESC key
 # define W 119//up
 # define A 97//left
@@ -39,7 +40,7 @@ typedef struct s_position//y as rows, x as columns ; position of an element
 	int	x;//nammed col to be more understandable??
 }	t_pos;
 
-typedef struct s_texture//ints are automatic ; don't forget to innit to NULL
+typedef struct s_texture//ints are automatic ; don't forget to init to NULL
 {
 	void	*empty;//0
 	void	*wall;//1, frame
@@ -52,7 +53,7 @@ typedef struct s_texture//ints are automatic ; don't forget to innit to NULL
 	int		width;
 }	t_txr;
 
-typedef struct s_game//mlx and win ; **map has to be set with read_map ; ints auto? ; game->img.smthg
+typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
@@ -61,17 +62,16 @@ typedef struct s_game//mlx and win ; **map has to be set with read_map ; ints au
 	int		width;
 	int		nb_collect;
 	int		dfs_collect;
-	int		dfs_exit;
+	int		dfs_player;
 	t_txr	img;
 	t_pos	player;
-	// t_pos	exit;
+	t_pos	exit;
 	// t_pos	enemy;
 	int		moves;
 	// void	*cat_frame[4];
 	int		anim_counter;//added
 	void	*ghost[3];//added
 	int		anim_frame;//added
-	int		nothing;//added for parsing check
 }	t_game;
 
 // functions here
@@ -88,7 +88,7 @@ bool	valid_map(t_game *game);
 int		check_rectangular(t_game *game);
 int		check_frame(t_game *game);
 int		check_chars(t_game *game);
-int		count_elem(t_game *game, char elem);
+int		count_elem(t_game *game, char elem, int y, int count);
 int		check_elems(t_game *game);
 // int		check_size(t_game *game);
 // int		check_file_format(char *file);

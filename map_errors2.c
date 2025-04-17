@@ -6,24 +6,20 @@
 /*   By: mle-brie <mle-brie@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:02:22 by mle-brie          #+#    #+#             */
-/*   Updated: 2025/04/15 15:47:06 by mle-brie         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:27:05 by mle-brie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	count_elem(t_game *game, char elem)//char or int? same difference, right?
+int	count_elem(t_game *game, char elem, int y, int count)//char or int? same difference, right?
 {
-	int	y;
 	int	x;
-	int	count;
 
-	y = 0;
-	count = 0;
-	while (game->map[y])
+	while (game->map[++y])
 	{
-		x = 0;
-		while (game->map[y][x])
+		x = -1;
+		while (game->map[y][++x])
 		{
 			if (game->map[y][x] == elem)
 			{
@@ -33,10 +29,13 @@ int	count_elem(t_game *game, char elem)//char or int? same difference, right?
 					game->player.y = y;
 					game->player.x = x;
 				}
+				if (elem == 'E')
+				{
+					game->exit.y = y;
+					game->exit.x = x;
+				}
 			}
-			x++;
 		}
-		y++;
 	}
 	return (count);
 }
@@ -47,9 +46,9 @@ int	check_elems(t_game *game)
 	int	e;
 	// int	x;
 
-	p = count_elem(game, 'P');
-	e = count_elem(game, 'E');
-	game->nb_collect = count_elem(game, 'C');
+	p = count_elem(game, 'P', -1, 0);
+	e = count_elem(game, 'E', -1, 0);
+	game->nb_collect = count_elem(game, 'C', -1, 0);
 	// x = count_elem(game, 'X');
 	if (p != 1 || e != 1 || !game->nb_collect)// || x > 1)
 		return (false);//something fucked up

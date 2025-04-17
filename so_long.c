@@ -6,7 +6,7 @@
 /*   By: mle-brie <mle-brie@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:47:18 by mle-brie          #+#    #+#             */
-/*   Updated: 2025/04/17 11:41:58 by mle-brie         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:33:57 by mle-brie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ void	print_inside_game(t_game *game)
 
 int	game_loop(t_game *game)
 {
-	mlx_clear_window(game->mlx, game->win);
 	animate_enemy(game);
 	load_map(game, -1, -1);
 	print_inside_game(game);
-	return (0);//needs to be an in for the mlx
+	return (0);//needs to be an int for the mlx
 }//added
 
 int	main(int ac, char *av[])
@@ -56,6 +55,7 @@ int	main(int ac, char *av[])
 	init_game(&game, av[1]);
 	if (!check_map(&game))//added
 		close_game(&game, 'P');//added
+	mlx_clear_window(game.mlx, game.win);
 	load_map(&game, -1, -1);//load at every move
 	mlx_key_hook(game.win, key_handler, &game);//key handling
 	mlx_hook(game.win, 17, 0, exit_game, &game);//click exit//close_game(game, "esc");
